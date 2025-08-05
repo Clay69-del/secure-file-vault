@@ -1,0 +1,69 @@
+.custom-navbar {
+  background: linear-gradient(90deg, #1e3c72, #2a5298); /* deep blue to lighter blue */
+}
+
+
+.custom-nav-link {
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.custom-nav-link:hover,
+.custom-nav-link:focus {
+  color: #ffd700 !important; /* gold hover */
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.navbar-brand img {
+  transition: transform 0.3s;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+.custom-program-card {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-program-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.custom-program-card .card-title {
+  font-weight: 600;
+}
+
+.custom-btn {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  color: #fff;
+  border: none;
+}
+
+.custom-btn:hover {
+  background: linear-gradient(90deg, #feb47b, #ff7e5f);
+  color: #fff;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 180px;
+}
+.dropdown-toggle::after {
+  vertical-align: middle;
+}
+
+.navbar .dropdown-menu {
+  margin-top: 8px;
+}
+
+.navbar .dropdown-item {
+  padding: 8px 16px;
+}
