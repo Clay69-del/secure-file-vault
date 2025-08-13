@@ -57,6 +57,9 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchDashboardData();
+    const intervalId = setInterval(fetchDashboardData, 10000); // Refresh every 10 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
   if (loading) {

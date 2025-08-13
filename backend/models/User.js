@@ -58,6 +58,21 @@ export default (sequelize) => {
         type: DataTypes.DATE,
         allowNull: true,
       },
+      // New fields for email verification
+      emailVerified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      verificationToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+      verificationTokenExpires: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       tableName: "users",

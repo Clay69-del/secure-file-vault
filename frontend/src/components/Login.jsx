@@ -57,7 +57,11 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(userData));
       login(userData);
       toast.success("Welcome back!");
-      navigate("/dashboard");
+      if (userData.role === "admin" || userData.role === "super_admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login error:", error);
       const errorMessage =
@@ -81,7 +85,11 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(userData));
       login(userData);
       toast.success("Welcome back!");
-      navigate("/dashboard");
+      if (userData.role === "admin" || userData.role === "super_admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Google login error:", error);
       const errorMessage =

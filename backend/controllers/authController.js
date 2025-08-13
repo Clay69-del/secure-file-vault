@@ -1,12 +1,14 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { User } from "../models/index.js";
+import { Op } from "sequelize";
 import crypto from "crypto";
 import {
   logUserActivity,
   USER_ACTIONS,
   TARGET_TYPES,
 } from "../middleware/userActivityLogger.js";
+import { sendVerificationEmail } from "../utils/emailService.js";
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -14,6 +16,7 @@ const generateToken = (user) => {
       id: user.id,
       name: user.name,
       email: user.email,
+      emailVerified: user.emailVerified,
     },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
@@ -52,22 +55,71 @@ export const register = async (req, res) => {
     if (existingUser) {
       return res.status(409).json({ error: "User already exists" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword });
-    const token = generateToken(user);
+    const verificationToken = crypto.randomBytes(20).toString("hex");
+    const verificationTokenExpires = Date.now() + 3600000; // 1 hour from now
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      emailVerified: false,
+      verificationToken,
+      verificationTokenExpires,
+    });
+    console.log("User created in DB:", JSON.stringify(user, null, 2));
+
+    await sendVerificationEmail(user.email, verificationToken);
+
     res.status(201).json({
-      token,
+      message: "Registration successful. Please verify your email.",
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
-        status: user.status,
+        emailVerified: user.emailVerified,
       },
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Registration failed" });
+    res.status(500).json({ error: err.message || "Registration failed" });
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  const { token } = req.query;
+
+  if (!token) {
+    return res.status(400).json({ error: "Verification token is missing." });
+  }
+
+  try {
+    const user = await User.findOne({
+      where: {
+        verificationToken: token,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid verification token." });
+    }
+
+    if (user.emailVerified) {
+      return res.status(200).json({ message: "Email has already been verified." });
+    }
+
+    if (user.verificationTokenExpires < new Date()) {
+      return res.status(400).json({ error: "Expired verification token." });
+    }
+
+    user.emailVerified = true;
+    await user.save();
+
+    res.status(200).json({ message: "Email verified successfully!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Email verification failed." });
   }
 };
 
@@ -97,6 +149,11 @@ export const login = async (req, res) => {
     if (!user) {
       console.error("No user found with email:", email);
       return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Check if email is verified
+    if (!user.emailVerified) {
+      return res.status(403).json({ error: "Please verify your email address." });
     }
 
     if (!user.password) {
@@ -132,6 +189,7 @@ export const login = async (req, res) => {
         email: user.email,
         role: user.role,
         status: user.status,
+        emailVerified: user.emailVerified,
       },
     });
   } catch (err) {
@@ -221,6 +279,7 @@ export const googleAuthLogin = async (req, res) => {
         name: name || "User",
         email,
         picture: picture || "",
+        emailVerified: true, // Google users are considered verified
       });
     }
 
@@ -231,6 +290,7 @@ export const googleAuthLogin = async (req, res) => {
         name: user.name,
         email: user.email,
         picture: user.picture,
+        emailVerified: user.emailVerified,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
@@ -258,6 +318,7 @@ export const googleAuthLogin = async (req, res) => {
         name: user.name,
         email: user.email,
         picture: user.picture,
+        emailVerified: user.emailVerified,
       },
     });
   } catch (err) {

@@ -33,6 +33,7 @@ import SecurityDashboard from "./components/admin/Security/SecurityDashboard";
 import LoginAttempts from "./components/admin/Security/LoginAttempts";
 import AuditLogs from "./components/admin/Security/AuditLogs";
 import FileManagement from "./components/admin/Files/FileManagement";
+import VerifyEmail from "./components/VerifyEmail";
 import "react-toastify/dist/ReactToastify.css";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(UserContext);
@@ -157,6 +158,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
 
           {/* Private Routes */}
           <Route
