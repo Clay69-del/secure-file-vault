@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 # Secure File Vault
 =======
 # Secure File Vaut - Secure File Vault
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 
 <div align="center">
   <img src="https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
@@ -10,8 +8,6 @@
   <img src="https://img.shields.io/badge/Encryption-AES--256--CBC-red?style=for-the-badge&logo=shield&logoColor=white" alt="Encryption" />
   <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License" />
 </div>
-
----
 
 ## 🛡️ Overview
 
