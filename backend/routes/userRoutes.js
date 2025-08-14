@@ -1,3 +1,4 @@
+import { body } from "express-validator";
 import express from "express";
 import multer from "multer";
 import path from "path";
@@ -32,7 +33,10 @@ const upload = multer({ storage, limits: { fileSize: 2 * 1024 * 1024 } }); // 2M
 router.get("/me", authMiddleware, getProfile);
 
 // Update profile details (name, email)
-router.put("/me", authMiddleware, updateProfile);
+router.put("/me", authMiddleware, [
+  body('name').trim().escape(),
+  body('email').isEmail().normalizeEmail()
+], updateProfile);
 
 // Upload/change profile picture
 router.post(

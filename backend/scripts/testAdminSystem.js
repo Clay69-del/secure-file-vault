@@ -13,11 +13,11 @@ const testAdminSystem = async () => {
 
     // 1. Find admin user
     const adminUser = await User.findOne({
-      where: { email: "admin@securefilevault.com" },
+      where: { email: "translatroyogendra@gmail.com" },
     });
 
     if (!adminUser) {
-      console.log("❌ Admin user not found!");
+      console.log("❌ Admin user not found! Please run the admin seeder or promoteAdmin script first.");
       return;
     }
 
@@ -26,6 +26,7 @@ const testAdminSystem = async () => {
     console.log(`   Email: ${adminUser.email}`);
     console.log(`   Role: ${adminUser.role}`);
     console.log(`   Status: ${adminUser.status}`);
+    console.log(`   Email Verified: ${adminUser.emailVerified}`);
     console.log("");
 
     // 2. Generate JWT token for admin
@@ -35,6 +36,7 @@ const testAdminSystem = async () => {
         name: adminUser.name,
         email: adminUser.email,
         role: adminUser.role,
+        emailVerified: adminUser.emailVerified,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
@@ -50,6 +52,7 @@ const testAdminSystem = async () => {
       console.log("✅ Token verification successful:");
       console.log(`   User ID: ${decoded.id}`);
       console.log(`   Role: ${decoded.role}`);
+      console.log(`   Email Verified (from token): ${decoded.emailVerified}`);
       console.log("");
     } catch (tokenError) {
       console.log("❌ Token verification failed:", tokenError.message);
@@ -64,9 +67,9 @@ const testAdminSystem = async () => {
     // 5. Show example curl command for testing API
     console.log("🌐 Test the admin API with this curl command:");
     console.log(
-      `curl -X GET "http://localhost:5000/api/admin/dashboard/stats" \\`
+      `curl -X GET "http://localhost:5000/api/admin/dashboard/stats" \`
     );
-    console.log(`     -H "Authorization: Bearer ${token}" \\`);
+    console.log(`     -H "Authorization: Bearer ${token}" \`);
     console.log(`     -H "Content-Type: application/json"`);
     console.log("");
 
@@ -79,7 +82,7 @@ const testAdminSystem = async () => {
     console.log("🎉 Admin system test completed successfully!");
     console.log("💡 You can now:");
     console.log(
-      "   1. Login to frontend with admin@securefilevault.com / admin123456"
+      "   1. Login to frontend with translatroyogendra@gmail.com / admin123456 (after email verification)"
     );
     console.log("   2. Navigate to http://localhost:5173/admin");
     console.log("   3. Test admin dashboard functionality");

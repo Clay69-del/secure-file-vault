@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import { User, SystemSettings } from "../models/index.js";
 import dotenv from "dotenv";
+import crypto from "crypto";
+import { sendVerificationEmail } from "../utils/emailService.js";
 
 dotenv.config();
 
@@ -22,16 +24,22 @@ const createDefaultAdmin = async () => {
       // Create default super admin user
       const adminPassword = process.env.ADMIN_DEFAULT_PASSWORD || "admin123456";
       const hashedPassword = await bcrypt.hash(adminPassword, 10);
+      const adminEmail = "translatroyogendra@gmail.com";
+      const verificationToken = crypto.randomBytes(20).toString("hex");
+      const verificationTokenExpires = Date.now() + 3600000; // 1 hour from now
 
       const adminUser = await User.create({
         name: "System Administrator",
-        email: process.env.ADMIN_EMAIL || "admin@securefilevault.com",
+        email: adminEmail,
         password: hashedPassword,
         role: "super_admin",
         status: "active",
         lastLoginAt: null,
         loginAttempts: 0,
         lockedUntil: null,
+        emailVerified: false,
+        verificationToken,
+        verificationTokenExpires,
       });
 
       console.log("✅ Super admin user created:");
@@ -40,6 +48,9 @@ const createDefaultAdmin = async () => {
       console.log(
         "   ⚠️  IMPORTANT: Please change the default password after first login!"
       );
+
+      await sendVerificationEmail(adminUser.email, verificationToken);
+      console.log("📧 Verification email sent to admin.");
     }
 
     // Create default system settings
@@ -178,3 +189,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 }
 
 export default createDefaultAdmin;
+

@@ -2,6 +2,7 @@ import { User, UserActivity } from "../models/index.js";
 import bcrypt from "bcryptjs";
 import path from "path";
 import { Op } from "sequelize";
+import { validationResult } from "express-validator";
 
 export const getProfile = async (req, res) => {
   try {
@@ -23,6 +24,10 @@ export const getProfile = async (req, res) => {
 };
 
 export const updateProfile = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const { name, email } = req.body;
     if (!name && !email) {

@@ -69,6 +69,7 @@ const encryptFile = async (inputPath, outputPath) => {
 
   await pipeline(input, cipher, output);
 };
+
 const decryptFile = async (inputPath, res) => {
   try {
     const stats = await fs.promises.stat(inputPath);
