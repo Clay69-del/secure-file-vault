@@ -1,6 +1,9 @@
 # Secure File Vault
+<<<<<<< HEAD
 =======
 # Secure File Vaut - Secure File Vault
+=======
+>>>>>>> parent of e7236e0 (Merge branch 'main' of https://github.com/Clay69-del/secure-file-vault)
 
 <div align="center">
   <img src="https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
@@ -11,11 +14,7 @@
 
 ## 🛡️ Overview
 
-<<<<<<< HEAD
 **Secure File Vault** is a comprehensive, enterprise-grade secure cloud storage and file management platform built with privacy-first principles. It provides end-to-end encrypted file storage, advanced admin controls, comprehensive audit logging, and robust user management capabilities. The platform leverages modern security standards to ensure complete data protection and privacy.
-=======
-**Secure File Vaut** is a comprehensive, enterprise-grade secure cloud storage and file management platform built with privacy-first principles. It provides end-to-end encrypted file storage, advanced admin controls, comprehensive audit logging, and robust user management capabilities. The platform leverages modern security standards to ensure complete data protection and privacy.
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 
 ### 🎯 Key Highlights
 
@@ -266,15 +265,9 @@ PORT=5000
 NODE_ENV=development
 
 # Database Configuration (choose one)
-<<<<<<< HEAD
 DATABASE_URL=postgresql://username:password@localhost:5432/securefilevault
 # or for MySQL
 # DATABASE_URL=mysql://username:password@localhost:3306/securefilevault
-=======
-DATABASE_URL=postgresql://username:password@localhost:5432/Secure File Vaut
-# or for MySQL
-# DATABASE_URL=mysql://username:password@localhost:3306/Secure File Vaut
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 # or for SQLite (development)
 # DATABASE_URL=sqlite:./database.sqlite
 
@@ -292,11 +285,7 @@ EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password
 
 # Admin Configuration
-<<<<<<< HEAD
 ADMIN_EMAIL=admin@securefilevault.com
-=======
-ADMIN_EMAIL=admin@Secure File Vaut.com
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 ADMIN_DEFAULT_PASSWORD=change_this_password
 ```
 
@@ -318,11 +307,7 @@ npm run dev
 
 1. **Access the application**: `http://localhost:5173`
 2. **Default Super Admin**:
-<<<<<<< HEAD
    - Email: `admin@securefilevault.com` (or your `ADMIN_EMAIL`)
-=======
-   - Email: `admin@Secure File Vaut.com` (or your `ADMIN_EMAIL`)
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
    - Password: `change_this_password` (or your `ADMIN_DEFAULT_PASSWORD`)
 3. **⚠️ IMPORTANT**: Change the default admin password immediately after first login!
 
@@ -549,17 +534,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🆘 Support & Documentation
 
-<<<<<<< HEAD
 - **🐛 Bug Reports**: [GitHub Issues](https://github.com/Clay69-del/Secure_File_Vault/issues)
 - **💡 Feature Requests**: [GitHub Discussions](https://github.com/Clay69-del/Secure_File_Vault/discussions)
 - **📚 Wiki**: [Project Wiki](https://github.com/Clay69-del/Secure_File_Vault/wiki)
 - **📧 Contact**: [support@Secure_File_Vault.com](mailto:support@Secure_File_Vault.com)
-=======
-- **🐛 Bug Reports**: [GitHub Issues](https://github.com/Clay69-del/Secure File Vaut/issues)
-- **💡 Feature Requests**: [GitHub Discussions](https://github.com/Clay69-del/Secure File Vaut/discussions)
-- **📚 Wiki**: [Project Wiki](https://github.com/Clay69-del/Secure File Vaut/wiki)
-- **📧 Contact**: [support@Secure File Vaut.com](mailto:support@Secure File Vaut.com)
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 
 ---
 
@@ -587,9 +565,5 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <div align="center">
   <h3>Built with ❤️ for privacy and security</h3>
-<<<<<<< HEAD
   <p>Secure_File_Vault - Where your files are truly safe</p>
-=======
-  <p>Secure File Vaut - Where your files are truly safe</p>
->>>>>>> c6c7e127736143edfc82d5b6faf38b410c0f18a9
 </div>
